@@ -59,14 +59,14 @@ client = init_connection(usr,pwd)
 def get_data():
     db = client.Scalping_data
     items = db.d2.find()
-    if len(list(items))==0:
-        items = db.d1.find()
+    #if len(list(items))==0:
+        #items = db.d1.find()
     items = list(items)  # make hashable for st.cache_data
     return pd.DataFrame(items)
 
 
 df = get_data()
-
+st.write(df)
 df["Datetime"] = pd.to_datetime(df["Date"])
 df['Hour'] = df['Datetime'].apply(lambda x: x.hour)
 df['Day'] = df['Datetime'].apply(lambda x: x.day_name())
