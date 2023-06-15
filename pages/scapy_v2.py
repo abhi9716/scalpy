@@ -67,7 +67,7 @@ def get_data():
 
 df = get_data()
 st.write(df)
-df["Datetime"] = pd.to_datetime(df["Date"])
+df["Datetime"] = pd.to_datetime(df["Date"],format='mixed',dayfirst=True)
 df['Hour'] = df['Datetime'].apply(lambda x: x.hour)
 df['Day'] = df['Datetime'].apply(lambda x: x.day_name())
 df['Date'] = df['Datetime'].apply(lambda x: x.date())
