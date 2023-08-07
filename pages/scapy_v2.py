@@ -74,7 +74,7 @@ df['Date'] = df['Datetime'].apply(lambda x: x.date())
 df["pnl"] = ((df["sell_at"]-df["buy_at"])/df["buy_at"])*100
 
 
-df1 = df[df["note"] == "stoploss_hit"]
+df1 = df
 df1 = df1.sort_values("Datetime")
 df1["running_pnl"] = df1.groupby('Date').pnl.cumsum()
 
