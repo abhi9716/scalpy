@@ -58,7 +58,7 @@ client = init_connection(usr,pwd)
 @st.cache_data(ttl=600)
 def get_data():
     db = client.Delv_data
-    items = db.open_trades.find()
+    items = db.open_trades1.find()
     #if len(list(items))==0:
         #items = db.d1.find()
     items = list(items)  # make hashable for st.cache_data
