@@ -58,7 +58,7 @@ client = init_connection(usr,pwd)
 @st.cache_data(ttl=600)
 def get_data():
     db = client.Scalping_data
-    items = db.d4.find()
+    items = db.d5.find()
     #if len(list(items))==0:
         #items = db.d1.find()
     items = list(items)  # make hashable for st.cache_data
@@ -71,7 +71,7 @@ df["Datetime"] = pd.to_datetime(df["Date"],format='mixed',dayfirst=True)
 df['Hour'] = df['Datetime'].apply(lambda x: x.hour)
 df['Day'] = df['Datetime'].apply(lambda x: x.day_name())
 df['Date'] = df['Datetime'].apply(lambda x: x.date())
-df["pnl"] = ((df["sell_at"]-df["buy_at"])/df["buy_at"])*100
+df["pnl"] = (df["per"])*100
 
 
 df1 = df
