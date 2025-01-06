@@ -57,7 +57,7 @@ client = init_connection(usr,pwd)
 @st.cache_data(ttl=600)
 def get_data():
     db = client.Scalping_data
-    items = db.d1.find()
+    items = db.d6.find()
     items = list(items)  # make hashable for st.cache_data
     return pd.DataFrame(items)
 
