@@ -25,6 +25,7 @@ import seaborn as sns
 # cm = sns.color_palette("blend:White,green", as_cmap=True)
 
 
+
 usr = st.secrets["usr"]
 pwd = st.secrets["pwd"]
 # username = urllib.parse.quote_plus(usr)
@@ -58,20 +59,22 @@ client = init_connection(usr,pwd)
 def get_data():
     db = client.Scalping_data
     items = db.d7.find()
+    #if len(list(items))==0:
+        #items = db.d1.find()
     items = list(items)  # make hashable for st.cache_data
     return pd.DataFrame(items)
 
 
 df = get_data()
-
-df["Datetime"] = pd.to_datetime(df["Date"])
+st.write(df)
+df["Datetime"] = pd.to_datetime(df["Date"],format='mixed',dayfirst=True)
 df['Hour'] = df['Datetime'].apply(lambda x: x.hour)
 df['Day'] = df['Datetime'].apply(lambda x: x.day_name())
 df['Date'] = df['Datetime'].apply(lambda x: x.date())
-df["pnl"] = ((df["sell_at"]-df["buy_at"])/df["buy_at"])*100
+df["pnl"] = (df["per"])*100
 
 
-df1 = df[df["note"] == "stoploss_hit"]
+df1 = df
 df1 = df1.sort_values("Datetime")
 df1["running_pnl"] = df1.groupby('Date').pnl.cumsum()
 
@@ -157,4 +160,3 @@ st.write(pivot3)
 #     st.write(df.head())
 #     pr = profiling(df)
 #     st_profile_report(pr)
-
