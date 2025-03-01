@@ -58,7 +58,7 @@ client = init_connection(usr,pwd)
 @st.cache_data(ttl=600)
 def get_data():
     db = client.Scalping_data
-    items = db.d7.find()
+    items = db.d9.find()
     #if len(list(items))==0:
         #items = db.d1.find()
     items = list(items)  # make hashable for st.cache_data
@@ -81,19 +81,19 @@ df1["running_pnl"] = df1.groupby('Date').pnl.cumsum()
 pivot = np.round(pd.pivot_table(df1, values='pnl', 
                                 index=['Date'], 
                                 columns=['Day'], 
-                                aggfunc=np.sum,
+                                aggfunc=np.mean,
                                 fill_value=0),2)
 
 pivot1 = np.round(pd.pivot_table(df1, values='pnl', 
                                 index=['Date'], 
                                 columns=['Hour'], 
-                                aggfunc=np.sum,
+                                aggfunc=np.mean,
                                 fill_value=0),2)
 
 pivot2 = np.round(pd.pivot_table(df1, values='pnl', 
                                 index=['Day'], 
                                 columns=['Hour'], 
-                                aggfunc=np.sum,
+                                aggfunc=np.mean,
                                 fill_value=0),2)
 
 pivot3 = np.round(pd.pivot_table(df1, values='pnl', 
