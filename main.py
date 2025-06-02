@@ -103,11 +103,12 @@ pivot3 = np.round(pd.pivot_table(df1, values='pnl',
                                 aggfunc='count',
                                 fill_value=0),2)
 
-pivot4 = np.round(pd.pivot_table(df1, values='pnl', 
-                                index=['Month'], 
-                                columns=['Month'], 
-                                aggfunc=np.mean,
-                                fill_value=0),2)
+pivot4 = pd.pivot_table(df1, values='pnl', 
+                        index='Month', 
+                        aggfunc=np.mean,
+                        fill_value=0).round(2)
+
+
 # Print results.
 
 @st.cache_data
@@ -133,8 +134,8 @@ st.subheader('Day vs Hour PNL')
 st.write(pivot2.style.applymap(highlight_max))
 st.subheader('Date vs Hour Trades Count')
 st.write(pivot3)
-st.subheader(' month Trades trend')
-st.write(pivot4)
+st.subheader('Monthly Average PnL')
+st.dataframe(pivot4)
 
 
 
