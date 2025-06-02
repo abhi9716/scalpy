@@ -70,6 +70,7 @@ st.write(df)
 df["Datetime"] = pd.to_datetime(df["day"],format='mixed',dayfirst=True)
 df['Hour'] = df['Datetime'].apply(lambda x: x.hour)
 df['Day'] = df['Datetime'].apply(lambda x: x.day_name())
+df['Month'] = df['Datetime'].apply(lambda x: x.month())
 df['Date'] = df['Datetime'].apply(lambda x: x.date())
 df["pnl"] = (df["per"])*100
 
@@ -101,6 +102,12 @@ pivot3 = np.round(pd.pivot_table(df1, values='pnl',
                                 columns=['Hour'], 
                                 aggfunc='count',
                                 fill_value=0),2)
+
+pivot4 = np.round(pd.pivot_table(df1, values='pnl', 
+                                index=['Date'], 
+                                columns=['Month'], 
+                                aggfunc=np.mean,
+                                fill_value=0),2)
 # Print results.
 
 @st.cache_data
@@ -126,6 +133,8 @@ st.subheader('Day vs Hour PNL')
 st.write(pivot2.style.applymap(highlight_max))
 st.subheader('Date vs Hour Trades Count')
 st.write(pivot3)
+st.subheader(' month Trades trend')
+st.write(pivot4)
 
 
 
