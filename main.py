@@ -104,7 +104,7 @@ pivot3 = np.round(pd.pivot_table(df1, values='pnl',
                                 fill_value=0),2)
 
 pivot4 = np.round(pd.pivot_table(df1, values='pnl', 
-                                index=['Date'], 
+                                index=['Month'], 
                                 columns=['Month'], 
                                 aggfunc=np.mean,
                                 fill_value=0),2)
