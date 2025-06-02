@@ -70,7 +70,7 @@ st.write(df)
 df["Datetime"] = pd.to_datetime(df["day"],format='mixed',dayfirst=True)
 df['Hour'] = df['Datetime'].apply(lambda x: x.hour)
 df['Day'] = df['Datetime'].apply(lambda x: x.day_name())
-df['Month'] = df['Datetime'].apply(lambda x: x.month())
+df['Month'] = df['Datetime'].apply(lambda x: x.month)
 df['Date'] = df['Datetime'].apply(lambda x: x.date())
 df["pnl"] = (df["per"])*100
 
